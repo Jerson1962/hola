@@ -90,6 +90,23 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
+        } #whatsappMessage {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            z-index: 9998;
+            font-size: 16px;
+            font-weight: bold;
+            transition: opacity 0.3s ease;
+        }
+
+        .container {
+            margin-top: 100px; /* Ajusta para que no se solape con el contenido */
         }
     </style>
       <style>
@@ -613,6 +630,21 @@
                 image.classList.toggle('zoomed');
             });
         });
+    </script>  <script>
+        window.onscroll = function() {
+            showWhatsappMessage();
+        };
+
+        // Función para mostrar el mensaje cuando se desplaza hacia abajo
+        function showWhatsappMessage() {
+            const message = document.getElementById("whatsappMessage");
+            if (window.scrollY > 150) { // Si el usuario ha desplazado 150px hacia abajo
+                message.style.display = "block"; // Mostrar mensaje
+                message.style.opacity = "1"; // Hacerlo visible
+            } else {
+                message.style.display = "none"; // Ocultar mensaje
+            }
+        }
     </script>
 </body>
 </html>
