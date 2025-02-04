@@ -9,8 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <style>
-
-@keyframes scrollBanner {
+ @keyframes scrollBanner {
     0% {
         transform: translateX(0); /* Comienza en su posición inicial dentro de la pantalla */
     }
@@ -105,20 +104,7 @@
             border-radius: 10px;
             object-fit: cover;
         }
- /* Estilo del botón para volver al inicio */
-        .back-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 100px;
-            background-color: #3ce7676c;
-            border: none;
-            color: white;
-            padding: 15px;
-            border-radius: 50%;
-            font-size: 20px;
-            cursor: pointer;
-            z-index: 9999;
-        }
+
         /* Botón de contacto */
         .contact-btn {
             background-color: #28a745;
@@ -173,6 +159,9 @@
             text-decoration: underline; /* Subrayado */
             text-decoration-color: #ffaf04f5; /* Color amarillo para el subrayado */
         }
+        /* Contenedor principal para permitir desplazamiento horizontal */
+     
+
         /* Contenedor principal para permitir desplazamiento horizontal */
     </style>
 </head>
@@ -297,12 +286,15 @@
             <div class="price">PEN170.00</div>
             <a href="https://wa.link/xcb4tt" target="_blank" class="contact-btn">¡Más Información!</a>
         </div>
-   <!-- Enlace a Bootstrap JS (incluye dependencias de Popper) -->
+    </div>
+
+    <!-- Botón para volver al inicio -->
+    <button class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+        <a class="nav-link" href="index.html"> 𝐯𝐨𝐥𝐯𝐞𝐫</a>
+    </button>
+ 
+    <!-- Enlace a Bootstrap JS (incluye dependencias de Popper) -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybJr6lJDNXWDRdR2lH0o1TXJ24mvL4jI93K5jtgf65r6p1Bz9" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-cuXjpe5u0rpNNlJ3kItJ5zHlAp7o3l34+z4jz6GMxVVnCwXlRYwD2b2x5gU8m9lg" crossorigin="anonymous"></script>
-   <button class="back-to-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
-        <a class="nav-link" href="index.html"> 𝐯𝐨𝐥𝐯𝐞𝐫</a>
-   </button>
-    </div>  
 </body>
 </html>
