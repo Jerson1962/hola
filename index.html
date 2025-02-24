@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -19,19 +19,6 @@
             color: #050505; /* Establecer el color del texto como blanco para mejor legibilidad */
         }
 
-        /* Capa oscura encima de la imagen de fondo */
-        .container, .navbar {
-            background-color: rgba(0, 0, 0, 0.5); /* Añadir un fondo oscuro semi-transparente */
-            border-radius: 8px;
-        }
-
-        /* Otros ajustes para el contenedor principal */
-        .container {
-            background-color: rgba(79, 148, 94, 0.445); /* Fondo oscuro ligeramente transparente */
-            padding: 30px;
-            border-radius: 8px;
-        }
-
         /* Ajustar el color de los botones */
         .btn-primary, .btn-success {
             background-color: #007bff; /* Botón azul */
@@ -45,43 +32,78 @@
 
         /* Personalizar el fondo de los paneles de productos */
         .card {
-              /* Fondo blanco translúcido para los paneles */
-              /* Fondo blanco translúcido para los paneles */
-            background-color: rgba(255, 255, 255, 0.623); /* Fondo blanco translúcido para los paneles */
             border-radius: 8px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
-        /* Asegurar que el texto de los productos sea legible */
         .card-body {
             color: #333; /* Asegurar que el texto sea oscuro en los paneles */
         }
 
-        /* Efecto de imagen con "movilidad realista" */
+        /* Estilo para mostrar la descripción al hacer clic */
+        .descripcion {
+            display: none;
+            margin-top: 10px;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
         .card-img-top {
             cursor: pointer;
-            transition: transform 0.3s ease; /* Suaviza la transición */
-            transform-origin: center center; /* Mantiene el zoom en el centro */
+            height: 200px;
+            object-fit: cover; /* Asegura que la imagen se ajuste bien al tamaño */
         }
 
-        .card-img-top.zoomed {
-            transform: scale(1.5); /* Aplica el zoom */
-            z-index: 10; /* Asegura que la imagen esté sobre otros elementos */
+        /* Estilo de la barra lateral */
+        .sidebar {
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            background-color: #343a40;
+            padding-top: 20px;
         }
 
-        /* Estilos para la imagen en la barra de menú */
-        .navbar-brand img {
-            width: 30px; /* Ancho de la imagen */
-            height: 30px; /* Alto de la imagen */
-            margin-right: 10px; /* Espacio entre la imagen y el texto */
+        .sidebar a {
+            color: white;
+            padding: 15px 25px;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s ease;
         }
 
-        /* Imagen flotante de WhatsApp */
+        .sidebar a:hover {
+            background-color: #0e1d12d0;
+            border-bottom: 3px solid #da1b2b;
+        }
+
+        /* Contenido principal */
+        .content {
+            margin-left: 270px; /* Aseguramos que el contenido principal se mueva a la derecha */
+            padding: 20px;
+        }
+
+        /* Contenedor de los paneles, para que sean desplazables */
+        .panel-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+            overflow-x: auto; /* Permite el desplazamiento horizontal */
+            padding: 10px;
+        }
+
         .whatsapp-float {
             position: fixed;
-            bottom: 20px; /* A 20px del fondo */
-            right: 20px; /* A 20px de la derecha */
-            z-index: 9999; /* Asegura que esté por encima de otros elementos */
-            width: 60px; /* Ajusta el tamaño de la imagen */
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            width: 60px;
             height: 60px;
             border-radius: 50%;
         }
@@ -90,76 +112,31 @@
             width: 100%;
             height: 100%;
             border-radius: 50%;
-        } #whatsappMessage {
-            position: fixed;
-            bottom: 90px;
-            right: 20px;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            display: none;
-            z-index: 9998;
-            font-size: 16px;
-            font-weight: bold;
-            transition: opacity 0.3s ease;
         }
 
-        .container {
-            margin-top: 100px; /* Ajusta para que no se solape con el contenido */
-        }
-    </style>
-      <style>
-        /* Animación para los enlaces */
-        .nav-link {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .nav-link::before {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            background: #20262e;
-            bottom: 0;
-            left: -100%;
-            transition: left 0.3s ease;
-        }
-        
-        .nav-link:hover::before {
-            left: 0;
+        /* Añadir sombras y un efecto al pasar el mouse sobre los productos */
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        /* Efecto hover en el logo */
-        .navbar-brand:hover {
-            transform: scale(1.1);
-            transition: transform 0.3s ease;
+        /* Personalizar el tamaño de los paneles */
+        .col-md-4 {
+            flex: 1 1 calc(33.33% - 20px); /* Tres columnas por fila */
+            max-width: calc(33.33% - 20px); /* Controlar el tamaño máximo */
         }
 
-        /* Cambio de color en hover en el logo */
-        .navbar-brand span {
-            color: #0d1013;
-        }  /* Mensaje flotante */
-        
-          .whatsapp-float::after {
-            content: "¡Te ayudamos en algo?"; /* Texto del mensaje */
-            position: absolute;
-            bottom: 70px; /* Ajusta la posición para que aparezca por encima de la imagen */
-            right: 0;
-            background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro con opacidad */
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 14px;
-            display: none; /* Se oculta inicialmente */
-            white-space: nowrap;
+        @media (max-width: 768px) {
+            .col-md-4 {
+                flex: 1 1 calc(50% - 20px); /* Dos columnas por fila en pantallas medianas */
+            }
         }
 
-        /* Mostrar mensaje cuando se pase el ratón */
-        .whatsapp-float:hover::after {
-            display: block;
-        }     /* Estilo del banner con animación */
+        @media (max-width: 576px) {
+            .col-md-4 {
+                flex: 1 1 100%; /* Una columna por fila en pantallas pequeñas */
+            }
+        } /* Estilo del banner con animación */
         .offer-banner {
             background-color: #55b3b9; /* Color amarillo, permanente */
             color: white; /* Color del texto, permanente */
@@ -174,7 +151,37 @@
             overflow: hidden; /* Oculta cualquier contenido que se salga del contenedor */
             display: flex; /* Flexbox para centrar el texto */
             justify-content: center; /* Centra el texto horizontalmente */
+        } .whatsapp-float::after {
+            content: "¡Te ayudamos en algo?"; /* Texto del mensaje */
+            position: absolute;
+            bottom: 70px; /* Ajusta la posición para que aparezca por encima de la imagen */
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro con opacidad */
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            display: none; /* Se oculta inicialmente */
+            white-space: nowrap;
+        }#whatsappMessage {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            z-index: 9998;
+            font-size: 16px;
+            font-weight: bold;
+            transition: opacity 0.3s ease;
         }
+
+        /* Mostrar mensaje cuando se pase el ratón */
+        .whatsapp-float:hover::after {
+            display: block;
+        }     /* Estilo del banner con 
 
         /* Animación del texto que se desplaza */
         @keyframes scrollBanner {
@@ -194,188 +201,11 @@
             animation: scrollBanner 100s linear infinite; /* Aplica la animación */
         }
 
-        /* Contenedor de la imagen dentro del banner */
-        .offer-banner img {
-            width: 50px; /* Tamaño de la imagen */
-            height: auto;
-            margin-left: 10px;
-            animation: rotateImage 100s linear infinite; /* Animación de rotación */
-        }
 
-        /* Animación de rotación de la imagen */
-        @keyframes rotateImage {
-            0% {
-                transform: rotate(0deg); /* Inicia en 0 grados */
-            }
-            100% {
-                transform: rotate(360deg); /* Rota completamente en 360 grados */
-            }
-        }
-    /* Fondo con imagen sombreada */
-     body {
-        background-image: url('tu-imagen-de-fondo.jpg');
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        color: #050505;
-    }
-
-    /* Estilos para la barra lateral que se desliza */
-    .side-menu {
-        position: fixed;
-        top: 50%;
-        left: 0;
-        transform: translateY(-50%);
-        width: 70px; /* Tamaño fijo del icono */
-        height: 200px; /* Tamaño de la barra lateral */
-        background-color: #aaa4a400;
-        border-radius: 5px 5px 0 0;
-        z-index: 100;
-        transition: width 0.3s ease-in-out;
-        opacity: 0.6; /* Icono transparente */
-    }
-
-    /* Estilos para el icono */
-    .side-menu img {
-        width: 100%;
-        height: auto;
-        cursor: pointer;
-        border-radius: 5px;
-        opacity: 0.5; /* Icono sutilmente transparente */
-        transition: opacity 0.3s ease;
-    }
-
-    /* Cuando el usuario pasa el ratón sobre el icono, aumenta su visibilidad */
-    .side-menu img:hover {
-        opacity: 1; /* Aumentar la opacidad cuando el usuario pasa el ratón sobre el icono */
-    }
-
-    /* Contenido que aparece cuando se despliega la barra lateral */
-    .side-menu-content {
-        position: absolute;
-        top: 0;
-        left: 100%; /* Inicialmente oculto a la derecha */
-        width: 250px;
-        background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semi-transparente */
-        color: white;
-        border-radius: 5px;
-        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-        padding: 20px;
-        display: none; /* Inicialmente oculto */
-        transition: left 0.3s ease-in-out;
-    }
-
-    /* Cuando la barra lateral está activa */
-    .side-menu.show {
-        width: 250px; /* El panel lateral se expande a 250px */
-    }
-
-    /* Mostrar el contenido cuando la barra lateral está activa */
-    .side-menu.show .side-menu-content {
-        display: block;
-        left: 0; /* Muestra la barra lateral hacia la izquierda */
-    }
-
-    /* Estilos para los enlaces dentro de la barra lateral */
-    .side-menu-content ul {
-        list-style: none;
-        padding: 0;
-    }
-
-    .side-menu-content ul li {
-        padding: 10px 0;
-    }
-
-    .side-menu-content ul li a {
-        text-decoration: none;
-        color: rgb(255, 253, 253);
-        font-size: 18px;
-    }
-
-    .side-menu-content ul li a:hover {
-        color: #55b3b9; /* Color al pasar el ratón */
-    } 
-    #toggleMenu {
-    position: fixed;
-    bottom: 90px;
-    right: 20px;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    display: none;
-    z-index: 9998;
-    font-size: 16px;
-    font-weight: bold;
-    transition: opacity 0.3s ease;
-}
     </style>
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-        <div class="container-fluid">
-            <!-- Logo y nombre de la marca -->
-            <a class="navbar-brand" href="#">
-                <img src="tarea.PNG" alt="Logo" style="height: 40px;">
-                <span>𝐥𝐮𝐦𝐢𝐥 𝐛𝐚𝐫𝐛𝐞𝐫</span>
-            </a> 
-                  <!-- Botón de menú en dispositivos móviles -->
- 
-    
-            <!-- Menú de navegación -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <!-- Enlaces visibles en dispositivos grandes y en el menú desplegable en dispositivos móviles -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">𝐯𝐞𝐫 𝐩𝐫𝐨𝐝𝐮𝐜𝐭𝐨𝐬</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="ofertas.html">𝐨𝐟𝐞𝐫𝐭𝐚𝐬</a> <!-- Enlace a Ofertas -->
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="comfirmar.html">𝐫𝐞𝐬𝐞𝐫𝐯𝐚</a> <!-- Redirige al id reserva -->
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav> </nav>    <!-- Barra lateral que se desliza -->
-    <div class="side-menu" id="sideMenu">
-        <img src=" istockphoto-1409016273-612x612.jpg"  alt="Ícono" onclick="toggleMenu()">
-          <!-- Mensaje emergente de ayuda -->
-        <div id="toggleMenu"> 
-                "mas opciones""
-            </div><div class="side-menu-content">
-            <ul>
-                <li><a href="comfirmar.html">Reserva</a></li>
-                <li><a href="#">Ver Producto</a></li>
-                <li><a href="ofertas.html">Ofertas</a></li>
-            </ul>
-        </div>
-    </div>  <script>
-        function toggleMenu() {
-            var sideMenu = document.getElementById('sideMenu');
-            sideMenu.classList.toggle('show');
-            var moreOptionsMessage = document.getElementById('moreOptionsMessage');
-            moreOptionsMessage.style.display = 'block'; // Mostrar el mensaje "Más opciones" al abrir el menú
-            setTimeout(function() {
-                moreOptionsMessage.style.display = 'none'; // Ocultar después de unos segundos
-            }, 2000); // 2 segundos
-        }
-    </script>
-
-    <!-- Enlace a Bootstrap JS (incluye dependencias de Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybJr6lJDNXWDRdR2lH0o1TXJ24mvL4jI93K5jtgf65r6p1Bz9" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-cuXjpe5u0rpNNlJ3kItJ5zHlAp7o3l34+z4jz6GMxVVnCwXlRYwD2b2x5gU8m9lg" crossorigin="anonymous"></script>
-
-    <!-- Script para el funcionamiento del menú lateral -->
-    <script>
-        function toggleMenu() {
-            var sideMenu = document.getElementById('sideMenu');
-            sideMenu.classList.toggle('show');
-        }
-    </script>
-     <!-- Línea amarilla superior -->
+<body>     <!-- Banner con mensaje desplazante -->
     <div class="offer-banner">
         <span>
             ---stock --- stock --- stock --- stock --- stock --- stock
@@ -387,395 +217,182 @@
             ---stock --- stock --- stock --- stock --- stock --- stock
             ---stock --- stock --- stock --- stock --- stock --- stock
             ---stock --- stock --- stock --- stock --- stock --- stock
-            ---stock --- stock --- stock --- stock --- stock --- stock
-            ---stock --- stock --- stock --- stock --- stock --- stock
-            ---stock --- stock --- stock --- stock --- stock --- stock
-            ---stock --- stock --- stock --- stock --- stock --- stock
-            ---stock --- stock --- stock --- stock --- stock --- stock
-            ---stock --- stock --- stock --- stock --- stock --- stock
-            ---stock --- stock --- stock --- stock --- stock --- stock
-            ---stock --- stock --- stock --- stock --- stock --- stock
         </span>
-        <!-- Imagen que rota -->
         <img src=" imagenes.png" alt="Icono o logo" />
     </div>
 
+
+    <!-- Barra lateral -->
+    <div class="sidebar">
+        <a href="pagina_de_reserva.html" onclick="showAppointmentsSection()"> </a>
+        <a class="navbar-brand" href="#">
+            <img src="tarea.PNG" alt="Logo" style="height: 40px;">
+            <span>𝐥𝐮𝐦𝐢𝐥 𝐛𝐚𝐫𝐛𝐞𝐫</span>
+        </a>
+        <h3 class="text-center"></h3>
+        <a href="ofertas.html" onclick="showAppointmentsSection()">𝔰𝔢𝔤𝔲𝔦𝔯 𝔢𝔵𝔭𝔩𝔬𝔯𝔞𝔫𝔡𝔬𝔬</a>
+        <a href="confirmar_reserva.html" onclick="alert('Función en construcción')">𝐫𝐞𝐬𝐞𝐫𝐯𝐀</a>
+    </div>
+
+    <!-- Sección principal -->
+    <div class="content">
+        <div class="container mt-5">
+            <div class="panel-container">
+                <!-- Panel 1: Imagen con opción de seleccionarla -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="senior_cordless_kit.webp" class="card-img-top" alt="Imagen Producto" id="productoImg1" onclick="showDescription('descripcion1')">
+                        <div class="card-body">
+                            <h5 class="card-title">𝐑𝐄𝐂𝐎𝐑𝐓𝐀𝐃𝐎𝐑𝐀 𝐖𝐀𝐇𝐋 𝐒𝐄Ñ𝐈𝐎𝐑</h5>
+                            <p class="card-text">𝐌𝐀𝐑𝐂𝐀:  𝐖𝐀𝐇𝐋</p>
+                            <a href="comfirmar.html?producto=%20WAHL%20SEÑOR%20INALÁMBRICO" class="btn btn-primary">Reservar</a>
+                        </div>
+                        <div class="descripcion" id="descripcion1">
+                            <p>Descripción del producto: Recortadora de alta calidad, ideal para uso profesional. Ideal para cortar el cabello con precisión.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 2 -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="full_image-1.webp" class="card-img-top" alt="Imagen Producto 2" onclick="showDescription('descripcion2')">
+                        <div class="card-body">
+                            <h5 class="card-title">Producto 2</h5>
+                            <p class="card-text">Descripción breve</p>
+                            <a href="comfirmar.html?producto=%20VGR%20V-001%20INALÁMBRICO" class="btn btn-primary">Reservar</a>
+                        </div>
+                        <div class="descripcion" id="descripcion2">
+                            <p>Descripción del producto 2: Detalles sobre este producto.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 3 -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="magic_clip.webp" class="card-img-top" alt="Imagen Producto 3" onclick="showDescription('descripcion3')">
+                        <div class="card-body">
+                            <h5 class="card-title">Producto 3</h5>
+                            <p class="card-text">Descripción breve</p>
+                            <a href="comfirmar.html?producto=%20WAHL%20DESIGNER%20INALÁMBRICO" class="btn btn-primary">Reservar</a>
+                        </div>
+                        <div class="descripcion" id="descripcion3">
+                            <p>Descripción del producto 3: Detalles sobre este producto.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Paneles 4 a 8 -->
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src=" w=800,h=800,fit=pad (1).avif" class="card-img-top" alt="Imagen Producto 4" onclick="showDescription('descripcion4')">
+                        <div class="card-body">
+                            <h5 class="card-title">Producto 4</h5>
+                            <p class="card-text">Descripción breve</p>
+                            <a href="comfirmar.html?producto=%20WAHL%20DESIGNER%20INALÁMBRICO" class="btn btn-primary">Reservar</a>
+                        </div>
+                        <div class="descripcion" id="descripcion4">
+                            <p>Descripción del producto 4: Detalles sobre este producto.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src=" BABYLSS.PNG" class="card-img-top" alt="Imagen Producto 5" onclick="showDescription('descripcion5')">
+                        <div class="card-body">
+                            <h5 class="card-title">Producto 5</h5>
+                            <p class="card-text">Descripción breve</p>
+                            <a href="comfirmar.html?producto=%20VGR%20TRIMMER%20INALÁMBRICO%20V-906" class="btn btn-primary">Reservar</a>
+                        </div>
+                        <div class="descripcion" id="descripcion5">
+                            <p>Descripción del producto 5: Detalles sobre este producto.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="  images2.3.jpeg" class="card-img-top" alt="Imagen Producto 6" onclick="showDescription('descripcion6')">
+                        <div class="card-body">
+                            <h5 class="card-title">Producto 6</h5>
+                            <p class="card-text">Descripción breve</p>
+                            <a href="comfirmar.html?producto=%20VGR%20V-001%20INALÁMBRICO%20ROJA,%20DORADO" class="btn btn-primary">Reservar</a>
+                        </div>
+                        <div class="descripcion" id="descripcion6">
+                            <p>Descripción del producto 6: Detalles sobre este producto.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="full_image-1.webp " class="card-img-top" alt="Imagen Producto 7" onclick="showDescription('descripcion7')">
+                        <div class="card-body">
+                            <h5 class="card-title">Producto 7</h5>
+                            <p class="card-text">Descripción breve</p>
+                            <a href="comfirmar.html?producto=%20WAHL%20BARBER%20CORTADORA+TRIMMER" class="btn btn-primary">Reservar</a>
+                        </div>
+                        <div class="descripcion" id="descripcion7">
+                            <p>Descripción del producto 7: Detalles sobre este producto.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <img src="image-dcd35f6dbcbf4a44976b54d125fe57e4.webp " class="card-img-top" alt="Imagen Producto 8" onclick="showDescription('descripcion8')">
+                        <div class="card-body">
+                            <h5 class="card-title">Producto 8</h5>
+                            <p class="card-text">Descripción breve</p>
+                            <a href="comfirmar.html?producto=%20WAHL%20DESIGNER%20INALÁMBRICO" class="btn btn-primary">Reservar</a>
+                        </div>
+                        <div class="descripcion" id="descripcion8">
+                            <p>Descripción del producto 8: Detalles sobre este producto.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
  
+<!-- Mensaje que será mostrado al hacer clic -->
+<div id="whatsappMessage" style="display:none; opacity: 0; transition: opacity 0.5s ease;">
+    <p>¡Tienes un mensaje en WhatsApp!</p>
+</div>
 
-<!-- Enlace a Bootstrap JS (incluye dependencias de Popper) -->
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybJr6lJDNXWDRdR2lH0o1TXJ24mvL4jI93K5jtgf65r6p1Bz9" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-cuXjpe5u0rpNNlJ3kItJ5zHlAp7o3l34+z4jz6GMxVVnCwXlRYwD2b2x5gU8m9lg" crossorigin="anonymous"></script>
- 
-                     </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- Contenedor principal -->
-    <div class="container mt-5">
-        <div class="row">
-            <!-- Panel 1: Imagen con opción de seleccionarla -->
-            <div class="col-md-6">
-                <div class="card">
-                    <img src="w=800,h=800,fit=pad (1).avif" class="card-img-top" alt="Imagen Producto" id="productoImg1">
-                    <div class="card-body">
-                        <h5 class="card-title"> 𝐕𝐆𝐑 𝐕-𝟗𝟎𝟔 𝐈𝐍𝐀𝐋𝐀𝐌𝐁𝐑𝐈𝐂𝐎</h5>
-                        <p class="card-text"> 𝐌𝐀𝐑𝐂𝐀: 𝐕𝐆𝐑</p>
-                        <a href="comfirmar.html?producto=TRIMMER%20VGR%20V-906%20INALÁMBRICO" class="btn btn-primary">Reservar</a>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Panel 2: Contenido -->
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">  𝐃𝐄𝐒𝐂𝐑𝐈𝐏𝐂𝐈𝐎𝐍 : </h5>
-                        <p class="card-text">
-                            Modelo: V-906 <br>
-                            Fuente de alimentación: USB <br>
-                            Tiempo de trabajo: 240 minutos <br>
-                            Tiempo de carga: 2,5 horas <br>
-                            Batería: Batería de iones de litio de 2000 mAh <br>
-                            Material de la hoja: cabezal de corte de cerámica <br>
-                            Material del producto: plástico (ABS) <br>
-                            Método de limpieza: cepillo seco <br>
-                            Entrada: DC 5V 1A <br>
-                            Potencia: 5W  <br>
-                            RPM: 9000RPM, 2 ajustes <br>
-                            Garantía: 1 año<br>  
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-   <div class="container mt-5">
-        <div class="row">
-            <!-- Panel 1: Imagen con opción de seleccionarla -->
-            <div class="col-md-6">
-                <div class="card">
-                    <img src="BABYLSS.PNG " class="card-img-top" alt="Imagen Producto" id="productoImg1">
-                    <div class="card-body">
-                        <h5 class="card-title"> 𝐑𝐄𝐂𝐎𝐑𝐓𝐀𝐃𝐎𝐑𝐀 𝐁𝐀𝐁𝐘𝐋𝐈𝐒𝐒 𝐆𝐎𝐋𝐃 </h5>
-                        <p class="card-text">  𝐌𝐀𝐑𝐂𝐀 : 𝐁𝐀𝐁𝐘𝐋𝐈𝐒𝐒 </p>
-                        <a href="comfirmar.html?producto=TRIMMER%20VGR%20V-906%20INALÁMBRICO" class="btn btn-primary">Reservar</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Panel 2: Contenido -->
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">  𝐃𝐄𝐒𝐂𝐑𝐈𝐏𝐂𝐈𝐎𝐍 : </h5>
-                        <p class="card-text">
-                        Modelo: Babyliss Gold Champion <br>
-                        Fuente de alimentación: Batería recargable (Lithium) <br>
-                        Tiempo de trabajo: 180 minutos <br>
-                        Tiempo de carga: 2 horas <br>
-                        Batería: Batería de litio de 2200 mAh <br>
-                        Material de la hoja: Acero inoxidable con recubrimiento de titanio <br>
-                        Material del producto: Plástico de alta resistencia y metal <br>
-                        Método de limpieza: Cepillo seco, cabeza desmontable <br>
-                        Entrada: DC 5V 1A <br>
-                        Potencia: 10W <br>
-                        RPM: 7000 RPM, 3 ajustes de velocidad <br>
-                        Garantía: 2 años <br>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-   
-    <div class="container mt-5">
-        <div class="row">
-            <!-- Panel 1: Imagen con opción de seleccionarla -->
-            <div class="col-md-6">
-                <div class="card">
-                    <img src=" images2.3.jpeg  " class="card-img-top" alt="Imagen Producto" id="productoImg1">
-                    <div class="card-body">
-                        <h5 class="card-title"> 𝐕𝐆𝐑-𝟎𝟎𝟏 𝐈𝐍𝐀𝐋𝐀𝐌𝐁𝐑𝐈𝐂𝐎</h5>
-                        <p class="card-text"> 𝐌𝐀𝐑𝐂𝐀: 𝐕𝐆𝐑</p>
-                        <a href="comfirmar.html?producto=%20VGR%20V-001%20INALÁMBRICO" class="btn btn-primary">Reservar</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Panel 2: Contenido -->
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"> 𝐃𝐄𝐒𝐂𝐑𝐈𝐏𝐂𝐈𝐎𝐍 : </h5>
-                        <p class="card-text">
-                            Modelo: V-001 <br>
-                            Fuente de alimentación: USB <br>
-                            Tiempo de trabajo: 240 minutos <br>
-                            Tiempo de carga: 2,5 horas <br>
-                            Batería: Batería de iones de litio de 2000 mAh <br>
-                            Material de la hoja: cabezal de corte de cerámica <br>
-                            Material del producto: plástico (ABS) <br>
-                            Método de limpieza: cepillo seco <br>
-                            Entrada: DC 5V 1A <br>
-                            Potencia: 5W  <br>
-                            RPM: 9000RPM, 2 ajustes <br>
-                            Garantía: 1 año<br>  
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container mt-5">
-        <div class="row">
-            <!-- Panel 1: Imagen con opción de seleccionarla -->
-            <div class="col-md-6">
-                <div class="card">
-                    <img src="tarea.webp " class="card-img-top" alt="Imagen Producto" id="productoImg1">
-                    <div class="card-body">
-                        <h5 class="card-title"> 𝐌𝐀𝐐𝐔𝐈𝐍𝐀 𝐑𝐄𝐂𝐎𝐑𝐓𝐀𝐃𝐎𝐑𝐀 𝐏𝐑𝐎𝐅𝐄𝐒𝐈𝐎𝐍𝐀𝐋 𝐕𝐆𝐑 𝐕-𝟎𝟎𝟑</h5>
-                        <p class="card-text"> 𝐌𝐀𝐑𝐂𝐀: 𝐕𝐆𝐑 </p>
-                        <a href="comfirmar.html?producto=Maquina corta pelo profesional%20VGR%20V-003%20INALÁMBRICO" class="btn btn-primary">Reservar</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Panel 2: Contenido -->
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">  𝐃𝐄𝐒𝐂𝐑𝐈𝐏𝐂𝐈𝐎𝐍 :</h5>
-                        <p class="card-text">
-                            Modelo: V-003 <br>
-                            Fuente de alimentación: USB <br>
-                            Tiempo de trabajo: 240 minutos <br>
-                            Tiempo de carga: 2,5 horas <br>
-                            Batería: Batería de iones de litio de 2000 mAh <br>
-                            Material de la hoja: cabezal de corte de cerámica <br>
-                            Material del producto: plástico (ABS) <br>
-                            Método de limpieza: cepillo seco <br>
-                            Entrada: DC 5V 1A <br>
-                            Potencia: 5W  <br>
-                            RPM: 9000RPM, 2 ajustes <br>
-                            Garantía: 1 año<br>  
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container mt-5">
-        <div class="row">
-            <!-- Panel 1: Imagen con opción de seleccionarla -->
-            <div class="col-md-6">
-                <div class="card">
-                    <img src=" full_image-1.webp" class="card-img-top" alt="Imagen Producto" id="productoImg1">
-                    <div class="card-body">
-                        <h5 class="card-title"> 𝐌𝐀𝐐𝐔𝐈𝐍𝐀 𝐑𝐄𝐂𝐎𝐑𝐓𝐀𝐃𝐎𝐑𝐀 𝐏𝐑𝐄𝐅𝐄𝐒𝐈𝐎𝐍𝐀𝐋 𝐕𝐆𝐑 𝐕-𝟔𝟎𝟒</h5>
-                        <p class="card-text"> 𝐌𝐀𝐑𝐂𝐀: 𝐕𝐆𝐑 </p>
-                        <a href="comfirmar.html?producto=Maquina corta pelo profesional%20VGR%20V-003%20INALÁMBRICO" class="btn btn-primary">Reservar</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Panel 2: Contenido -->
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">  𝐃𝐄𝐒𝐂𝐑𝐈𝐏𝐂𝐈𝐎𝐍 :</h5>
-                        <p class="card-text">
-                            Modelo: V-003 <br>
-                            Fuente de alimentación: USB <br>
-                            Tiempo de trabajo: 250 minutos <br>
-                            Tiempo de carga: 2,5 horas <br>
-                            Batería: Batería de iones de litio de 2000 mAh <br>
-                            Material de la hoja: cabezal de corte de cerámica <br>
-                            Material del producto: plástico (ABS) <br>
-                            Método de limpieza: cepillo seco <br>
-                            Entrada: DC 5V 1A <br>
-                            Potencia: 5W  <br>
-                            RPM: 9000RPM, 2 ajustes <br>
-                            Garantía: 1 año<br>  
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container mt-5">
-        <div class="row">
-            <!-- Panel 1: Imagen con opción de seleccionarla -->
-            <div class="col-md-6">
-                <div class="card">
-                    <img src=" magic clip.webp " class="card-img-top" alt="Imagen Producto" id="productoImg1">
-                    <div class="card-body">
-                        <h5 class="card-title">  𝐑𝐄𝐂𝐎𝐑𝐓𝐀𝐃𝐎𝐑𝐀 𝐖𝐀𝐇𝐋 𝐌𝐀𝐆𝐈𝐂 𝐂𝐋𝐈𝐏</h5>
-                        <p class="card-text"> 𝐌𝐀𝐑𝐂𝐀: 𝐖𝐀𝐇𝐋 </p>
-                        <a href="comfirmar.html?producto=Maquina corta pelo profesional%20VGR%20V-003%20INALÁMBRICO" class="btn btn-primary">Reservar</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Panel 2: Contenido -->
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"> 𝐃𝐄𝐒𝐂𝐑𝐈𝐏𝐂𝐈𝐎𝐍 : </h5>
-                        <p class="card-text">
-                            
-                            Fuente de alimentación: Cable (versión con cable) / Batería recargable de ion de litio (versión inalámbrica)<br>
-                             Tiempo de trabajo: Hasta 90 minutos de uso continuo (versión inalámbrica)<br>
-                             Tiempo de carga: 60-90 minutos de carga rápida<br>
-                             Batería: Batería de ion de litio de 2000 mAh<br>
-                             Material de la hoja: Cuchilla de acero inoxidable de precisión<br>
-                             Material del producto: Plástico ABS de alta calidad<br>
-                             Método de limpieza: Cepillo seco / Lavado de cuchillas con agua (solo para la cuchilla)<br>
-                             Entrada: DC 5V (carga)<br>
-                             Potencia: 10W<br>
-                             RPM: 5500 RPM (Motor rotativo de alta velocidad)<br>
-                             Ajustes de longitud: Palanca ajustable de longitud de corte<br>
-                             Garantía: 1 año<br>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container mt-5">
-        <div class="row">
-            <!-- Panel 1: Imagen con opción de seleccionarla -->
-            <div class="col-md-6">
-                <div class="card">
-                    <img src="image-dcd35f6dbcbf4a44976b54d125fe57e4.webp " class="card-img-top" alt="Imagen Producto" id="productoImg1">
-                    <div class="card-body">
-                        <h5 class="card-title"> 𝐂𝐎𝐑𝐓𝐀𝐃𝐎𝐑𝐀 𝐖𝐀𝐇𝐋 𝐃𝐄𝐒𝐈𝐆𝐍𝐄𝐑</h5>
-                        <p class="card-text"> 𝐌𝐀𝐑𝐂𝐀: 𝐖𝐀𝐇𝐋</p>
-                        <a href="comfirmar.html?producto=%20VGR%20V-001%20INALÁMBRICO" class="btn btn-primary">Reservar</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Panel 2: Contenido -->
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">  𝐃𝐄𝐒𝐂𝐑𝐈𝐏𝐂𝐈𝐎𝐍 : </h5>
-                        <p class="card-text">
-                            Modelo: Wahl Designer<br>
-                            Fuente de alimentación: Cable de alimentación (con enchufe estándar)<br>
-                            Tiempo de trabajo: Ilimitado (uso con cable)<br>
-                            Tiempo de carga: No aplicable (uso con cable)<br>
-                            Batería: No aplica (funcionamiento con cable)<br>
-                            Material de la hoja: Acero de alta precisión<br>
-                            Material del producto: Plástico (ABS) de alta resistencia<br>
-                            Método de limpieza: Cepillo seco y limpieza con aceite<br>
-                            Entrada: 110V - 120V<br>
-                            Potencia: 12W<br>
-                            RPM: 7200 RPM<br>
-                            Garantía: 1 año <br>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container mt-5">
-        <div class="row">
-            <!-- Panel 1: Imagen con opción de seleccionarla -->
-            <div class="col-md-6">
-                <div class="card">
-                    <img src=" senior_cordless_kit.webp" class="card-img-top" alt="Imagen Producto" id="productoImg1">
-                    <div class="card-body">
-                        <h5 class="card-title"> 𝐑𝐄𝐂𝐎𝐑𝐓𝐀𝐃𝐎𝐑𝐀 𝐖𝐀𝐇𝐋 𝐒𝐄Ñ𝐈𝐎𝐑</h5>
-                        <p class="card-text"> 𝐌𝐀𝐑𝐂𝐀:  𝐖𝐀𝐇𝐋</p>
-                        <a href="comfirmar.html?producto=%20VGR%20V-001%20INALÁMBRICO" class="btn btn-primary">Reservar</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Panel 2: Contenido -->
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"> 𝐃𝐄𝐒𝐂𝐑𝐈𝐏𝐂𝐈𝐎𝐍 :</h5>
-                        <p class="card-text">
-                            Modelo: Wahl Senior<br>
-                            Fuente de alimentación: Cable (versión con cable) / Batería recargable de ion de litio (versión inalámbrica)<br>
-                            Tiempo de trabajo: Hasta 70 minutos de uso continuo (versión inalámbrica)<br>
-                            Tiempo de carga: 60-120 minutos de carga rápida<br>
-                            Batería: Batería de ion de litio de 1400 mAh<br>
-                            Material de la hoja: Cuchilla de acero inoxidable de precisión, de tipo "Fade"<br>
-                            Material del producto: Plástico ABS de alta calidad, con un acabado metálico resistente<br>
-                            Método de limpieza: Cepillo seco / Lavado de cuchillas con agua (solo para la cuchilla)<br>
-                            Entrada: DC 5V (carga)<br>
-                            Potencia: 12W<br>
-                            RPM: 6000 RPM (Motor electromagnético de alta velocidad)<br>
-                            Ajustes de longitud: Palanca ajustable de longitud de corte<br>
-                            Garantía: 1 año<br>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Imagen flotante de WhatsApp -->
     <a href="https://wa.link/xcb4tt" target="_blank" class="whatsapp-float">
         <img src="Captura.PNG" alt="WhatsApp">
-    </a> <!-- Mensaje emergente de ayuda -->
-    <div id="whatsappMessage">
-        ¿En qué podemos ayudarte?
-    </div>
+    </a>
 
-    <!-- Sección de Reserva -->
-    <div id="reserva" class="container mt-5" style="display: none;">
-        <h2>Formulario de Reserva</h2>
-        <p>Completa el siguiente formulario para reservar el producto.</p>
-        <form action="confirmar_reserva.html" method="GET">
-            <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresa tu nombre">
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Correo Electrónico</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Ingresa tu correo electrónico">
-            </div>
-            <button type="submit" class="btn btn-success">Confirmar Reserva</button>
-        </form>
-    </div>
-
-
-    <!-- Enlace a Bootstrap JS (incluye dependencias de Popper) -->
+    <!-- Scripts de Bootstrap y funcionalidades adicionales -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybJr6lJDNXWDRdR2lH0o1TXJ24mvL4jI93K5jtgf65r6p1Bz9" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-cuXjpe5u0rpNNlJ3kItJ5zHlAp7o3l34+z4jz6GMxVVnCwXlRYwD2b2x5gU8m9lg" crossorigin="anonymous"></script>
 
-    <!-- Script para el zoom en las imágenes -->
+    <!-- Función para mostrar la descripción al hacer clic en la imagen -->
     <script>
-        // Obtener todas las imágenes del panel
-        const images = document.querySelectorAll('.card-img-top');
+        function showDescription(id) {
+            const description = document.getElementById(id);
+            description.style.display = description.style.display === 'block' ? 'none' : 'block';
+        }function showWhatsappMessage() {
+    const message = document.getElementById("whatsappMessage");
+    
+    // Mostrar el mensaje y hacer visible
+    message.style.display = "block";  // Mostrar el mensaje
+    message.style.opacity = "1";      // Hacerlo visible (con una transición suave)
+}
 
-        // Añadir el efecto de zoom al hacer clic en las imágenes
-        images.forEach(image => {
-            image.addEventListener('click', () => {
-                // Toggle de la clase 'zoomed' para aplicar o quitar el zoom
-                image.classList.toggle('zoomed');
-            });
-        });
-    </script>  <script>
-        window.onscroll = function() {
-            showWhatsappMessage();
-        };
+// Seleccionar la imagen de WhatsApp
+const whatsappImage = document.getElementById("whatsappImage");
 
-        // Función para mostrar el mensaje cuando se desplaza hacia abajo
-        function showWhatsappMessage() {
-            const message = document.getElementById("whatsappMessage");
-            if (window.scrollY > 150) { // Si el usuario ha desplazado 150px hacia abajo
-                message.style.display = "block"; // Mostrar mensaje
-                message.style.opacity = "1"; // Hacerlo visible
-            } else {
-                message.style.display = "none"; // Ocultar mensaje
-            }
-        }
+// Agregar el evento de clic sobre la imagen
+whatsappImage.addEventListener('click', function(event) {
+    event.preventDefault();  // Prevenir que el enlace de WhatsApp se active inmediatamente
+    showWhatsappMessage();   // Llamar a la función para mostrar el mensaje
+});
     </script>
 </body>
 </html>
