@@ -129,7 +129,7 @@
             const whatsappButton = document.getElementById('whatsapp-button');
             
             if (reservedProducts.length > 0) {
-                const productListMessage = reservedProducts.map(product => decodeURIComponent(product)).join('%0A'); // %0A es el salto de línea
+                const productListMessage = reservedProducts.map(product => decodeURIComponent(product)).join('---'); // %0A es el salto de línea
                 const whatsappMessage = `He reservado los siguientes productos:${productListMessage}`;
                 const phoneNumber = "986837976"; // Reemplaza con el número de WhatsApp (con código de país)
                 const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
