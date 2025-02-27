@@ -39,6 +39,12 @@
         .btn-primary {
             margin-top: 20px;
         }
+
+        .btn-whatsapp {
+            margin-top: 20px;
+            background-color: #25d366;
+            color: white;
+        }
     </style>
 </head>
 
@@ -58,6 +64,9 @@
         </div>
 
         <a href="index.html" class="btn btn-primary">Volver al inicio</a>
+        
+        <!-- Botón para enviar el pedido a WhatsApp -->
+        <a href="#" id="whatsapp-button" class="btn btn-whatsapp" target="_blank">Enviar Pedido</a>
     </div>
 
     <script>
@@ -92,6 +101,8 @@
                     productList.appendChild(productItem);
                 });
             }
+
+            updateWhatsAppLink(); // Actualizar el enlace de WhatsApp
         }
 
         // Eliminar un producto de la lista
@@ -112,10 +123,29 @@
             saveReservedProducts(reservedProducts); // Guardar en localStorage
         }
 
+        // Función para actualizar el enlace de WhatsApp
+        function updateWhatsAppLink() {
+            const reservedProducts = getReservedProducts();
+            const whatsappButton = document.getElementById('whatsapp-button');
+            
+            if (reservedProducts.length > 0) {
+                const productListMessage = reservedProducts.map(product => decodeURIComponent(product)).join('%0A'); // %0A es el salto de línea
+                const whatsappMessage = `He reservado los siguientes productos:%0A${productListMessage}`;
+                const phoneNumber = "1234567890"; // Reemplaza con el número de WhatsApp (con código de país)
+                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+                
+                whatsappButton.setAttribute('href', whatsappUrl); // Establecer el enlace de WhatsApp
+            } else {
+                whatsappButton.setAttribute('href', '#'); // No hacer nada si no hay productos reservados
+                whatsappButton.classList.add('disabled'); // Deshabilitar el botón si no hay productos
+            }
+        }
+
         // Renderizar la lista de productos reservados al cargar la página
         renderReservedProducts();
     </script>
 </body>
 
 </html>
+
 
