@@ -1,66 +1,21 @@
-  <!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>𝐥𝐮𝐦𝐢𝐥 𝐛𝐚𝐫𝐛𝐞𝐫</title>
-
-    <!-- Enlace a Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
-    <!-- Estilos personalizados -->
+    <title>Lumil Barber</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        /* Fondo con imagen sombreada */
         body {
-            background-image: url('tu-imagen-de-fondo.jpg'); /* Reemplaza con la ruta de tu imagen */
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: #050505; /* Establecer el color del texto como blanco para mejor legibilidad */
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
-
-        /* Ajustar el color de los botones */
-        .btn-primary, .btn-success {
-            background-color: #007bff; /* Botón azul */
-            border-color: #007bff;
-        }
-
-        .btn-primary:hover, .btn-success:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
-        }
-
-        /* Personalizar el fondo de los paneles de productos */
-        .card {
-            border-radius: 8px;
-            margin-bottom: 20px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .card-body {
-            color: #333; /* Asegurar que el texto sea oscuro en los paneles */
-        }
-
-        /* Estilo para mostrar la descripción al hacer clic */
-        .descripcion {
-            display: none;
-            margin-top: 10px;
-            background-color: #f8f9fa;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .card-img-top {
-            cursor: pointer;
-            height: 200px;
-            object-fit: cover; /* Asegura que la imagen se ajuste bien al tamaño */
-        }
-
-        /* Estilo de la barra lateral */
-        .sidebar {
-            width: 250px;
+        #sidebar {
+            min-width: 250px;
+            max-width: 250px;
+            transition: all 0.3s;
             position: fixed;
             top: 0;
             left: 0;
@@ -68,331 +23,226 @@
             background-color: #343a40;
             padding-top: 20px;
         }
-
+        #sidebar.collapsed {
+            margin-left: -250px;
+        }
+        #content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 260px;
+            transition: margin-left 0.3s;
+        }
+        .toggle-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+        }
         .sidebar a {
             color: white;
             padding: 15px 25px;
             text-decoration: none;
             display: block;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease-in-out;
         }
-
         .sidebar a:hover {
             background-color: #0e1d12d0;
             border-bottom: 3px solid #da1b2b;
+            transform: scale(1.1);
         }
-
-        /* Contenido principal */
-        .content {
-            margin-left: 270px; /* Aseguramos que el contenido principal se mueva a la derecha */
-            padding: 20px;
+        .panel {
+            width: calc(33.33% - 20px);
+            margin: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            background: #f8f9fa;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
         }
-
-        /* Contenedor de los paneles, para que sean desplazables */
-        .panel-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: space-between;
-            overflow-x: auto; /* Permite el desplazamiento horizontal */
-            padding: 10px;
+        .panel:hover {
+            transform: scale(1.05);
         }
-
+        .panel img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
         .whatsapp-float {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            z-index: 9999;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+            background-color: #25d366;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            font-weight: bold;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
         }
-
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
         .whatsapp-float img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
+            width: 25px;
+            margin-right: 10px;
         }
-
-        /* Añadir sombras y un efecto al pasar el mouse sobre los productos */
-        .card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        .panels-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
         }
-
-        /* Personalizar el tamaño de los paneles */
-        .col-md-4 {
-            flex: 1 1 calc(33.33% - 20px); /* Tres columnas por fila */
-            max-width: calc(33.33% - 20px); /* Controlar el tamaño máximo */
-        }
-
-        @media (max-width: 768px) {
-            .col-md-4 {
-                flex: 1 1 calc(50% - 20px); /* Dos columnas por fila en pantallas medianas */
-            }
-        }
-
-        @media (max-width: 576px) {
-            .col-md-4 {
-                flex: 1 1 100%; /* Una columna por fila en pantallas pequeñas */
-            }
-        } /* Estilo del banner con animación */
-        .offer-banner {
-            background-color: #55b3b9; /* Color amarillo, permanente */
-            color: white; /* Color del texto, permanente */
-            text-align: center;
-            font-size: 20px;
-            font-weight: bold;
-            padding: 10px 0;
-            position: relative; /* Se usa "relative" para que quede debajo del navbar */
-            width: 100%;
-            z-index: 9998; /* Asegura que esté encima de otros elementos */
-            white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
-            overflow: hidden; /* Oculta cualquier contenido que se salga del contenedor */
-            display: flex; /* Flexbox para centrar el texto */
-            justify-content: center; /* Centra el texto horizontalmente */
-        } .whatsapp-float::after {
-            content: "¡Te ayudamos en algo?"; /* Texto del mensaje */
-            position: absolute;
-            bottom: 70px; /* Ajusta la posición para que aparezca por encima de la imagen */
-            right: 0;
-            background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro con opacidad */
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 14px;
-            display: none; /* Se oculta inicialmente */
-            white-space: nowrap;
-        }#whatsappMessage {
-            position: fixed;
-            bottom: 90px;
-            right: 20px;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            display: none;
-            z-index: 9998;
-            font-size: 16px;
-            font-weight: bold;
-            transition: opacity 0.3s ease;
-        }
-
-        /* Mostrar mensaje cuando se pase el ratón */
-        .whatsapp-float:hover::after {
-            display: block;
-        }     /* Estilo del banner con 
-
-        /* Animación del texto que se desplaza */
-        @keyframes scrollBanner {
-            0% {
-                transform: translateX(0); /* Comienza en su posición inicial dentro de la pantalla */
-            }
-            50% {
-                transform: translateX(-100%); /* Mueve el texto completamente hacia la izquierda */
-            }
-            100% {
-                transform: translateX(0); /* Vuelve al centro de la pantalla */
-            }
-        }
-
-        .offer-banner span {
-            display: inline-block;
-            animation: scrollBanner 100s linear infinite; /* Aplica la animación */
-        }
-
-
     </style>
 </head>
+<body>
+    <button class="btn btn-primary toggle-btn">☰</button>
+    <nav id="sidebar" class="text-white p-3">
+        <h2>𝐋𝐔𝐌𝐈𝐋 𝐁𝐀𝐑𝐁𝐄𝐑</h2>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a href="#" class="nav-link text-white">Inicio</a></li>
+            <li class="nav-item"><a href="ofertas.html" class="nav-link text-white">𝖘𝖊𝖌𝖚𝖎𝖗 𝖊𝖝𝖕𝖑𝖔𝖗𝖆𝖓𝖉𝖔 </a></li>
+            <li class="nav-item"><a href="confirmar.html" class="nav-link text-white"> 𝖛𝖊𝖗 𝖗𝖊𝖘𝖊𝖗𝖛𝖆</a></li>
+        </ul>
+    </nav>
 
-<body>     <!-- Banner con mensaje desplazante -->
-    <div class="offer-banner">
-        <span>
-            ---stock --- stock --- stock --- stock --- stock --- stock
-            ---stock --- stock --- stock --- stock --- stock --- stock
-            ---stock --- stock --- stock --- stock --- stock --- stock
-            ---stock --- stock --- stock --- stock --- stock --- stock
-            ---stock --- stock --- stock --- stock --- stock --- stock
-            ---stock --- stock --- stock --- stock --- stock --- stock
-            ---stock --- stock --- stock --- stock --- stock --- stock
-            ---stock --- stock --- stock --- stock --- stock --- stock
-            ---stock --- stock --- stock --- stock --- stock --- stock
-        </span>
-        <img src=" imagenes.png" alt="Icono o logo" />
-    </div>
-
-
-    <!-- Barra lateral -->
-    <div class="sidebar">
-        <a href="pagina_de_reserva.html" onclick="showAppointmentsSection()"> </a>
-        <a class="navbar-brand" href="#">
-            <img src="tarea.PNG" alt="Logo" style="height: 40px;">
-            <span>𝐥𝐮𝐦𝐢𝐥 𝐛𝐚𝐫𝐛𝐞𝐫</span>
-        </a>
-        <h3 class="text-center"></h3>
-        <a href="ofertas.html" onclick="showAppointmentsSection()">𝔰𝔢𝔤𝔲𝔦𝔯 𝔢𝔵𝔭𝔩𝔬𝔯𝔞𝔫𝔡𝔬𝔬</a>
-        <a href="confirmar_reserva.html" onclick="alert('Función en construcción')">𝐫𝐞𝐬𝐞𝐫𝐯𝐀</a>
-    </div>
-
-    <!-- Sección principal -->
-    <div class="content">
-        <div class="container mt-5">
-            <div class="panel-container">
-                <!-- Panel 1: Imagen con opción de seleccionarla -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="senior_cordless_kit.webp" class="card-img-top" alt="Imagen Producto" id="productoImg1" onclick="showDescription('descripcion1')">
-                        <div class="card-body">
-                            <h5 class="card-title">𝐑𝐄𝐂𝐎𝐑𝐓𝐀𝐃𝐎𝐑𝐀 𝐖𝐀𝐇𝐋 𝐒𝐄Ñ𝐈𝐎𝐑</h5>
-                            <p class="card-text">𝐌𝐀𝐑𝐂𝐀:  𝐖𝐀𝐇𝐋</p>
-                            <a href="comfirmar.html?producto=%20WAHL%20SEÑOR%20INALÁMBRICO" class="btn btn-primary">Reservar</a>
+    <div id="content">
+        <h1> 𝐁𝐢𝐞𝐧𝐯𝐞𝐧𝐢𝐝𝐨 𝐚 𝐋𝐮𝐦𝐢𝐥 𝐁𝐚𝐫𝐛𝐞𝐫</h1>
+        <div class="panels-container">
+            <script>
+                const productos = [
+                    { 
+                        nombre: "CORTADORA WAHL SEÑIOR", 
+                        img: "senior_cordless_kit.webp ",
+                        descripcion: " Las cortadoras de cabello Wahl son reconocidas por su calidad, precisión y durabilidad. Wahl ofrece una variedad de modelos, tanto para uso profesional como doméstico.." 
+                    },
+                    { 
+                        nombre: "CORTADORA WAHL MAGIC CLIP", 
+                        img: " magic_clip.webp",
+                        descripcion: "Ideal para degradados y cortes rápidos sin esfuerzo." 
+                    },
+                    { 
+                        nombre: "CORTADORA BABYLISS GOLD", 
+                        img: " BABYLSS.PNG",
+                        descripcion: "Diseño elegante con cuchillas de alta precisión." 
+                    },
+                    { 
+                        nombre: "TRIMMER VGR v-906", 
+                        img: " w=800,h=800,fit=pad (1).avif",
+                        descripcion: "Un corte de cabello más un arreglo de barba con perfilado." 
+                    },
+                    { 
+                        nombre: "RIZADOR SECADOR GAMA AVOCADO", 
+                        img: "full_image-1.jpeg",
+                        descripcion: "Estilismo avanzado para cualquier tipo de evento." 
+                    },
+                    { 
+                        nombre: " Remington con aguacate (palta)", 
+                        img: " imagen4-1.webp",
+                        descripcion: " ✔ Placas con recubrimiento cerámico infundidas con aceite de aguacate y macadamia." 
+                    },
+                    { 
+                        nombre: " CORTADORA VGR V-001", 
+                        img: " 594535835-715403674.webp",
+                        descripcion: "Para quienes necesitan un corte express sin perder calidad." 
+                    },
+                    { 
+                        nombre: " PLANCHA BABYLISS 32MM", 
+                        img: " image-9cde0650b57d48d78c6c181bfbb07b4e.webp",
+                        descripcion: " La Plancha BaBylissPRO Nano Titanium de 1¼ pulgadas (32 mm) es una herramienta profesional diseñada para proporcionar un alisado eficiente y proteger la salud del cabello. " 
+                    },
+                    { 
+                        nombre: "Corte con Diseño", 
+                        img: "https://via.placeholder.com/250x150/FFA500/FFFFFF?text=Corte+Diseño",
+                        descripcion: "Detalles y diseños personalizados en tu corte." 
+                    },
+                    { 
+                        nombre: "MAGIC CLIP CORDLEESS GOLD", 
+                        img: " Rename D_NQ_NP_902699-MLU72404959560_102023-O.webp",
+                        descripcion: "Corte clásico y elegante para un look profesional." 
+                    },
+                    { 
+                        nombre: " easy cut", 
+                        img: " easycut,png",
+                        descripcion: "Estilos modernos inspirados en la cultura urbana." 
+                    },
+                    { 
+                        nombre: "combo deluxe Wahl", 
+                        img: "D_NQ_NP_.webp",
+                        descripcion: "Coloración para todo tipo de cabello con los mejores productos." 
+                    },
+                    { 
+                        nombre: "RIZADOR 25MM BABYLISS", 
+                        img: " full_image-90 (1).webp",
+                        descripcion: " El rizador de 25 mm de BaByliss es una herramienta profesional diseñada para crear rizos definidos y duraderos." 
+                    },
+                    { 
+                        nombre: " DESIGNES WAHL CORTADORA", 
+                        img: " image-dcd35f6dbcbf4a44976b54d125fe57e4.webp",
+                        descripcion: "Cortes divertidos y cómodos para los más pequeños." 
+                    },
+                    { 
+                        nombre: " VGR CORTADORA V-003", 
+                        img: " tarea.webp",
+                        descripcion: "Lava, hidrata y dale forma a tu cabello con los mejores productos." 
+                    }
+                ];
+            
+                 
+            </script>
+             <script>
+                productos.forEach(producto => {
+                    document.write(`
+                        <div class="panel">
+                            <img src="${producto.img}" alt="${producto.nombre}">
+                            <h5>${producto.nombre}</h5>
+                            <p>${producto.descripcion}</p>
+                            <a href="#" class="btn btn-primary" onclick="reservarProducto('${encodeURIComponent(producto.nombre)}')">Reservar</a>
                         </div>
-                        <div class="descripcion" id="descripcion1">
-                            <p>Descripción del producto: Recortadora de alta calidad, ideal para uso profesional. Ideal para cortar el cabello con precisión.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Panel 2 -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="full_image-1.webp" class="card-img-top" alt="Imagen Producto 2" onclick="showDescription('descripcion2')">
-                        <div class="card-body">
-                            <h5 class="card-title">Producto 2</h5>
-                            <p class="card-text">Descripción breve</p>
-                            <a href="comfirmar.html?producto=%20VGR%20V-001%20INALÁMBRICO" class="btn btn-primary">Reservar</a>
-                        </div>
-                        <div class="descripcion" id="descripcion2">
-                            <p>Descripción del producto 2: Detalles sobre este producto.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Panel 3 -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="magic_clip.webp" class="card-img-top" alt="Imagen Producto 3" onclick="showDescription('descripcion3')">
-                        <div class="card-body">
-                            <h5 class="card-title">Producto 3</h5>
-                            <p class="card-text">Descripción breve</p>
-                            <a href="comfirmar.html?producto=%20WAHL%20DESIGNER%20INALÁMBRICO" class="btn btn-primary">Reservar</a>
-                        </div>
-                        <div class="descripcion" id="descripcion3">
-                            <p>Descripción del producto 3: Detalles sobre este producto.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Paneles 4 a 8 -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src=" w=800,h=800,fit=pad (1).avif" class="card-img-top" alt="Imagen Producto 4" onclick="showDescription('descripcion4')">
-                        <div class="card-body">
-                            <h5 class="card-title">Producto 4</h5>
-                            <p class="card-text">Descripción breve</p>
-                            <a href="comfirmar.html?producto=%20WAHL%20DESIGNER%20INALÁMBRICO" class="btn btn-primary">Reservar</a>
-                        </div>
-                        <div class="descripcion" id="descripcion4">
-                            <p>Descripción del producto 4: Detalles sobre este producto.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src=" BABYLSS.PNG" class="card-img-top" alt="Imagen Producto 5" onclick="showDescription('descripcion5')">
-                        <div class="card-body">
-                            <h5 class="card-title">Producto 5</h5>
-                            <p class="card-text">Descripción breve</p>
-                            <a href="comfirmar.html?producto=%20VGR%20TRIMMER%20INALÁMBRICO%20V-906" class="btn btn-primary">Reservar</a>
-                        </div>
-                        <div class="descripcion" id="descripcion5">
-                            <p>Descripción del producto 5: Detalles sobre este producto.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="  images2.3.jpeg" class="card-img-top" alt="Imagen Producto 6" onclick="showDescription('descripcion6')">
-                        <div class="card-body">
-                            <h5 class="card-title">Producto 6</h5>
-                            <p class="card-text">Descripción breve</p>
-                            <a href="comfirmar.html?producto=%20VGR%20V-001%20INALÁMBRICO%20ROJA,%20DORADO" class="btn btn-primary">Reservar</a>
-                        </div>
-                        <div class="descripcion" id="descripcion6">
-                            <p>Descripción del producto 6: Detalles sobre este producto.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="full_image-1.webp " class="card-img-top" alt="Imagen Producto 7" onclick="showDescription('descripcion7')">
-                        <div class="card-body">
-                            <h5 class="card-title">Producto 7</h5>
-                            <p class="card-text">Descripción breve</p>
-                            <a href="comfirmar.html?producto=%20WAHL%20BARBER%20CORTADORA+TRIMMER" class="btn btn-primary">Reservar</a>
-                        </div>
-                        <div class="descripcion" id="descripcion7">
-                            <p>Descripción del producto 7: Detalles sobre este producto.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div class="card">
-                        <img src="image-dcd35f6dbcbf4a44976b54d125fe57e4.webp " class="card-img-top" alt="Imagen Producto 8" onclick="showDescription('descripcion8')">
-                        <div class="card-body">
-                            <h5 class="card-title">Producto 8</h5>
-                            <p class="card-text">Descripción breve</p>
-                            <a href="comfirmar.html?producto=%20WAHL%20DESIGNER%20INALÁMBRICO" class="btn btn-primary">Reservar</a>
-                        </div>
-                        <div class="descripcion" id="descripcion8">
-                            <p>Descripción del producto 8: Detalles sobre este producto.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                    `);
+                });
+            
+                function reservarProducto(nombreProducto) {
+                    let productosReservados = JSON.parse(localStorage.getItem("productosReservados")) || [];
+            
+                    if (!productosReservados.includes(nombreProducto)) {
+                        productosReservados.push(nombreProducto);
+                        localStorage.setItem("productosReservados", JSON.stringify(productosReservados));
+                    }
+            
+                    enviarWhatsApp(productosReservados);
+                    window.location.href = "confirmar_reserva.html";
+                }
+            
+                function enviarWhatsApp(productos) {
+                    const phoneNumber = "986837976"; // Número de WhatsApp de destino
+                    const mensaje = `He reservado los siguientes productos:\n${productos.map(decodeURIComponent).join("\n")}`;
+                    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(mensaje)}`;
+            
+                    window.open(whatsappUrl, "_blank");
+                }
+            </script>
+            
+            
         </div>
     </div>
- 
-<!-- Mensaje que será mostrado al hacer clic -->
-<div id="whatsappMessage" style="display:none; opacity: 0; transition: opacity 0.5s ease;">
-    <p>¡Tienes un mensaje en WhatsApp!</p>
-</div>
 
-
-    <!-- Imagen flotante de WhatsApp -->
-    <a href="https://wa.link/xcb4tt" target="_blank" class="whatsapp-float">
-        <img src="Captura.PNG" alt="WhatsApp">
+    <a href="https://wa.me/986837976" class="whatsapp-float">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+        ¿Te ayudamos en algo?
     </a>
 
-    <!-- Scripts de Bootstrap y funcionalidades adicionales -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz4fnFO9gybJr6lJDNXWDRdR2lH0o1TXJ24mvL4jI93K5jtgf65r6p1Bz9" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-cuXjpe5u0rpNNlJ3kItJ5zHlAp7o3l34+z4jz6GMxVVnCwXlRYwD2b2x5gU8m9lg" crossorigin="anonymous"></script>
-
-    <!-- Función para mostrar la descripción al hacer clic en la imagen -->
     <script>
-        function showDescription(id) {
-            const description = document.getElementById(id);
-            description.style.display = description.style.display === 'block' ? 'none' : 'block';
-        }function showWhatsappMessage() {
-    const message = document.getElementById("whatsappMessage");
-    
-    // Mostrar el mensaje y hacer visible
-    message.style.display = "block";  // Mostrar el mensaje
-    message.style.opacity = "1";      // Hacerlo visible (con una transición suave)
-}
-
-// Seleccionar la imagen de WhatsApp
-const whatsappImage = document.getElementById("whatsappImage");
-
-// Agregar el evento de clic sobre la imagen
-whatsappImage.addEventListener('click', function(event) {
-    event.preventDefault();  // Prevenir que el enlace de WhatsApp se active inmediatamente
-    showWhatsappMessage();   // Llamar a la función para mostrar el mensaje
-});
+        $(document).ready(function() {
+            $(".toggle-btn").click(function() {
+                $("#sidebar").toggleClass("collapsed");
+                $("#content").css("margin-left", $("#sidebar").hasClass("collapsed") ? "0px" : "260px");
+            });
+        });
     </script>
 </body>
 </html>
+
